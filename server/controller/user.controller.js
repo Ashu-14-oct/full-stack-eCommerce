@@ -26,7 +26,7 @@ module.exports.signUp = async (req, res) => {
             name: newUser.name,
             email: newUser.email 
         }
-
+        console.log(newUserData);
         return res.status(201).json({message: "User signed up succesfully", newUserData});
     }catch(err){
         console.log(err);

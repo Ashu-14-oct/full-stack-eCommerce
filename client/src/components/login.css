@@ -1,0 +1,34 @@
+.gradient-custom {
+    background: #6a11cb;    
+    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+body {
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+.container {
+    height: fit-content;
+    padding: 0 15px; 
+}
+
+.card {
+    height: 600px;
+    width: 100%;
+    max-width: 400px;
+    border-radius: 1rem;
+    padding: 20px;
+    margin-left: 60px;
+    box-sizing: border-box;
+}
+
+
+.card-body {
+    padding: 2rem;
+}
