@@ -44,7 +44,7 @@ export default function Login() {
     } catch (error) {
       console.error('Error:', error);
       toast.error(JSON.stringify(error.response.data), {
-        icon: <FiAlertCircle size={24} />, // Adjust icon size
+        icon: <FiAlertCircle size={24} />,
       });
     }
   };

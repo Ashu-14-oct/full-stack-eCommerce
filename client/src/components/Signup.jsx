@@ -35,14 +35,14 @@ export default function Signup() {
     try {
       const response = await axios.post('http://localhost:5000/user/sign-up', formData);
       toast.success(JSON.stringify(response.data.message), {
-        icon: <FiCheckCircle size={24} />, // Adjust icon size
+        icon: <FiCheckCircle size={24} />
       });
       console.log(response.data);
       navigate('/login');
     } catch (error) {
       console.error('Error:', error);
       toast.error(JSON.stringify(error.response.data), {
-        icon: <FiAlertCircle size={24} />, // Adjust icon size
+        icon: <FiAlertCircle size={24} />,
       });
     }
   };
