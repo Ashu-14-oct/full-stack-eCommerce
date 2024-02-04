@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import "./login.css";
 
@@ -71,6 +71,7 @@ export default function Login() {
                         <label className="form-label" htmlFor="password">Password</label>
                       </div>
                       <button className="btn btn-outline-light btn-lg px-5" type="submit">Login</button>
+                      <p style={{marginTop: '20px'}}>don't have an account? <Link to="/signup">Sign up</Link></p>
                     </form>
                   </div>
                 </div>

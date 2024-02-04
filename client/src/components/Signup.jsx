@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
-import { useNavigate } from 'react-router-dom';
+import { Link ,useNavigate } from 'react-router-dom';
 import "./login.css";
 
 export default function Signup() {
@@ -59,20 +59,21 @@ export default function Signup() {
                     <h2 className="fw-bold mb-2 text-uppercase">Sign up</h2>
                     <p className="text-white-50 mb-5">Please enter your email, name, and password!</p>
                     <form onSubmit={handleSubmit}>
-                      <div className="form-outline form-white mb-4">
+                      <div className="form-outline form-white ">
                         <input type="text" id="name" name="name" value={formData.name} onChange={handleChange} className="form-control form-control-lg" />
                         <label className="form-label" htmlFor="name">Name</label>
                       </div>
-                      <div className="form-outline form-white mb-4">
+                      <div className="form-outline form-white">
                         <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} className="form-control form-control-lg" />
                         <label className="form-label" htmlFor="email">Email</label>
                       </div>
-                      <div className="form-outline form-white mb-4">
+                      <div className="form-outline form-white ">
                         <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} className="form-control form-control-lg" />
                         <label className="form-label" htmlFor="password">Password</label>
                       </div>
                       <button className="btn btn-outline-light btn-lg px-5" type="submit">Sign up</button>
                     </form>
+                    <p style={{marginTop: '20px'}}>Already have an account? <Link to="/signup">Sign In</Link></p>
                   </div>
                 </div>
               </div>

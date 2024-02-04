@@ -17,7 +17,7 @@ router.post('/admin/sign-in', admin.signIn);
 router.post('/product/create', auth.check,product.create);
 router.delete('/product/delete/:id', auth.check,product.delete);
 router.put('/product/update/:id', auth.check,product.update);
-router.get('/product', auth.check,product.allProducts);
+router.get('/product', auth.checkUser,product.allProducts);
 
 // cart and orders routing
 router.patch('/user/add-cart/:id', auth.checkUser, user.addToCart);

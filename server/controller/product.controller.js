@@ -63,7 +63,6 @@ module.exports.update = async (req, res) => {
 //get products endpoint
 module.exports.allProducts = async (req, res) => {
     try{
-        // console.log(req.user);
         const allProducts = await Product.find();
         return res.status(200).json({allProducts});
     }catch(err){
