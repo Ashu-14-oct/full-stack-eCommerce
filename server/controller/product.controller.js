@@ -3,12 +3,13 @@ const Product = require("../models/product.model");
 //creating product endpoint
 module.exports.create = async (req, res) => {
     try{
-        const {name, description, quantity, price} = req.body;
+        const {name, description, quantity, price, photo} = req.body;
         const product = await Product.create({
             name,
             description,
             quantity,
-            price
+            price,
+            photo
         });
 
         return res.status(201).json({message: "New product added", product});

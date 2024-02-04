@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./product.css";
 
 export default function Product() {
   const [products, setProducts] = useState([]);
@@ -24,16 +25,32 @@ export default function Product() {
     fetchProducts();
   }, []);
 
+  // Function to handle adding product to cart
+  const handleAddToCart = (productId) => {
+    console.log(`Product ${productId} added to cart`);
+  };
+
+  // Function to handle buying product
+  const handleBuyProduct = (productId) => {
+    console.log(`Buying product ${productId}`);
+  };
+
   return (
-    <div>
+    <div className="product-container">
       <h1>Products</h1>
-      <ul>
+      <div className="product-grid">
         {products.map((product) => (
-          <li key={product._id}>
-            {product.name} - ${product.price}
-          </li>
+          <div key={product._id} className="product-item">
+            <img src={product.photo} alt={product.name} className="product-image" />
+            <h3>{product.name}</h3>
+            <p>Rs.{product.price}</p>
+            <div className="button-container">
+              <button onClick={() => handleAddToCart(product._id)}>Add to Cart</button>
+              <button onClick={() => handleBuyProduct(product._id)}>Buy</button>
+            </div>
+          </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 }

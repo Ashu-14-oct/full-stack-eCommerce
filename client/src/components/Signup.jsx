@@ -73,7 +73,7 @@ export default function Signup() {
                       </div>
                       <button className="btn btn-outline-light btn-lg px-5" type="submit">Sign up</button>
                     </form>
-                    <p style={{marginTop: '20px'}}>Already have an account? <Link to="/signup">Sign In</Link></p>
+                    <p style={{marginTop: '20px'}}>Already have an account? <Link to="/login">Sign In</Link></p>
                   </div>
                 </div>
               </div>
