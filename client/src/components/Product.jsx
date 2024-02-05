@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./product.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Product() {
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -36,12 +38,24 @@ export default function Product() {
         },
       };
     const response = await axios.patch(`http://localhost:5000/user/add-cart/${productId}`, {},config);
-    console.log(response.data.user);
+    navigate('/cart');
   };
 
   // Function to handle buying product
-  const handleBuyProduct = (productId) => {
-    console.log(`Buying product ${productId}`);
+  const handleBuyProduct = async (productId) => {
+    try{
+      const token = localStorage.getItem("token");
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+      const response = await axios.patch(`http://localhost:5000/user/order/${productId}`, {}, config);
+      console.log(response.data.message);
+      navigate('/orders');
+    }catch(err){
+      console.log(err);
+    }
   };
 
   return (
@@ -55,7 +69,7 @@ export default function Product() {
             <p>Rs.{product.price}</p>
             <div className="button-container">
               <button onClick={() => handleAddToCart(product._id)}>Add to Cart</button>
-              <button onClick={() => handleBuyProduct(product._id)}>Buy</button>
+              <button onClick={() => handleBuyProduct(product._id)}>Order</button>
             </div>
           </div>
         ))}
