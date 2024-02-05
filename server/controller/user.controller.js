@@ -62,13 +62,14 @@ module.exports.signIn = async (req, res) => {
 module.exports.addToCart = async (req, res) => {
     try{
          const {id} = req.params;
+         console.log(id);
          const product = await Product.findById({_id: id});
          if(!product){
             return res.status(409).json({message: "Product does not exist"});
          }
 
          const user = req.user;
-         user.cart.push(product._id);
+         user.cart.push(id);
          user.save();
          return res.status(200).json({message: "Added to the cart successfully", user});
     }catch(err){
@@ -119,6 +120,32 @@ module.exports.removeOrder = async (req, res) => {
         user.order = user.order.filter((product) => product.toString() !== id.toString());
         await user.save();
         return res.status(200).json({message: "Product removed successfully", user});
+    }catch(err){
+        console.log((err));
+        return res.status(500).json({message: "Internal server error"});
+    }
+}
+
+//get cart items
+module.exports.cart = async (req, res) => {
+    try{
+        const user = req.user;
+        const cartItems = user.cart;
+
+        return res.status(200).json({cartItems});
+    }catch(err){
+        console.log((err));
+        return res.status(500).json({message: "Internal server error"});
+    }
+}
+
+//get order items
+module.exports.order = async (req, res) => {
+    try{
+        const user = req.user;
+        const orderItems = user.order;
+
+        return res.status(200).json({orderItems});
     }catch(err){
         console.log((err));
         return res.status(500).json({message: "Internal server error"});

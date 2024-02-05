@@ -4,7 +4,6 @@ const User = require('../models/user.model');
 module.exports.check = async (req, res, next) => {
     try{
         const token = req.headers.authorization;
-        console.log(token);
         if(!token){
             return res.status(409).json({message: "Missing token"});
         }
@@ -40,7 +39,7 @@ module.exports.checkUser = async (req, res, next) => {
             return res.status(404).json({ message: "User not found" });
         }
         req.user = user;
-        console.log(req.user);
+        // console.log(req.user);
         if(user.role !=='user'){
             return res.status(404).json({message: "Unauthorized request"});
         }

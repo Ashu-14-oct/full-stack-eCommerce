@@ -14,6 +14,7 @@ router.post('/admin/sign-up', admin.signUp);
 router.post('/admin/sign-in', admin.signIn);
 
 // products routing
+router.get('/product-id/:id', product.product);
 router.post('/product/create', auth.check,product.create);
 router.delete('/product/delete/:id', auth.check,product.delete);
 router.put('/product/update/:id', auth.check,product.update);
@@ -24,5 +25,7 @@ router.patch('/user/add-cart/:id', auth.checkUser, user.addToCart);
 router.patch('/user/remove-cart/:id', auth.checkUser, user.removeCart);
 router.patch('/user/order/:id', auth.checkUser, user.addToOrders);
 router.patch('/user/order-delete/:id', auth.checkUser, user.removeOrder);
+router.get('/user/cart', auth.checkUser, user.cart);
+router.get('/user/order', auth.checkUser, user.order);
 
 module.exports = router;

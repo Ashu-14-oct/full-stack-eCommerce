@@ -26,8 +26,17 @@ export default function Product() {
   }, []);
 
   // Function to handle adding product to cart
-  const handleAddToCart = (productId) => {
+  const handleAddToCart = async (productId) => {
     console.log(`Product ${productId} added to cart`);
+
+    const token = localStorage.getItem("token");
+    const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      };
+    const response = await axios.patch(`http://localhost:5000/user/add-cart/${productId}`, {},config);
+    console.log(response.data.user);
   };
 
   // Function to handle buying product
