@@ -37,7 +37,7 @@ export default function Product() {
           Authorization: `Bearer ${token}`,
         },
       };
-    const response = await axios.patch(`http://localhost:5000/user/add-cart/${productId}`, {},config);
+    await axios.patch(`http://localhost:5000/user/add-cart/${productId}`, {},config);
     navigate('/cart');
   };
 

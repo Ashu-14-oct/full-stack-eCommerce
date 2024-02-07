@@ -80,7 +80,6 @@ module.exports.product = async (req, res) => {
         if(!product){
             return res.status(404).json({message: "Product does not exist"});
         }
-        console.log(product);
         return res.status(200).json({product});
     }catch(err){
         console.log(err);

@@ -1,8 +1,27 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 
+
 export default function OrderedItem({productId}) {
     const [product, setProduct] = useState(null);
+
+    const cancelOrder = async () => {
+      try{
+        const token = localStorage.getItem("token");
+        const config = {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+        const response = await axios.patch(`http://localhost:5000/user/order-delete/${productId}`,{},config);
+        console.log(response.data.message);
+        if(response.data.message){
+          window.location.reload();
+        }
+      }catch(err){
+        console.log(err);
+      }
+    }
     useEffect(() => {
         async function fetchOrders(){
             try{
@@ -20,7 +39,7 @@ export default function OrderedItem({productId}) {
             }
         }
         fetchOrders();
-    }, []);
+    }, [productId]);
     return (
         <div className="container">
           <div className="item-container">
@@ -35,8 +54,7 @@ export default function OrderedItem({productId}) {
                 <p className="item-description">{product.description}</p>
                 <p className="item-price">Price: Rs.{product.price}</p>
                 <div className="button-container">
-                  <button>Buy</button>
-                  <button style={{backgroundColor: "red"}}>Remove</button>
+                  <button onClick={() => {cancelOrder()}} style={{backgroundColor: "red"}}>Cancel your order</button>
                 </div>
               </div>
             ) : (

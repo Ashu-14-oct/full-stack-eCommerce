@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import { loadStripe } from '@stripe/stripe-js';
 import "./item.css";
 
 export default function Item({ itemId }) {
@@ -18,12 +19,22 @@ export default function Item({ itemId }) {
           Authorization: `Bearer ${token}`
         }
       }
-      const response = await axios.patch(`http://localhost:5000/user/order/${productId}`, {}, config);
-      if(response.data.user){
+      const order = await axios.patch(`http://localhost:5000/user/order/${productId}`, {}, config);
+      const response = await axios.post(`http://localhost:5000/create-checkout-session/${itemId}`, {}, config);
+      
+      // Load Stripe
+      const stripe = await loadStripe('pk_test_51OgreHSGw3aWlDdWT6yzdf48TfPXXRsIvnlxCgJJoBufeIy09akWRxAkPeyHX4d7SHxabr65TqPck7MmEi22LwOZ00chx759sS');
+
+      
+
+      if(order.data.user){
         const removeFromCart = await axios.patch(`http://localhost:5000/user/remove-cart/${productId}`, {}, config);
         navigate('/orders');
         console.log(removeFromCart.data.message);
       }
+
+      // Redirect the user to the Stripe Checkout page
+      stripe.redirectToCheckout({ sessionId: response.data.sessionId });
     }catch(err){
       console.log(err);
     }

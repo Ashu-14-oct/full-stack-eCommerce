@@ -9,6 +9,9 @@ const router = express.Router();
 router.post('/user/sign-up', user.signUp);
 router.post('/user/sign-in', user.signIn);
 
+//stripe
+router.post('/create-checkout-session/:id', user.stripeSession);
+
 //routing for admin sign in/sign up
 router.post('/admin/sign-up', admin.signUp);
 router.post('/admin/sign-in', admin.signIn);

@@ -2,6 +2,7 @@ const User = require('../models/user.model');
 const Product = require("../models/product.model");
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
+const stripe = require('stripe')(process.env.STRIPE);
 
 //create user endpoint
 module.exports.signUp = async (req, res) => {
@@ -149,5 +150,41 @@ module.exports.order = async (req, res) => {
     }catch(err){
         console.log((err));
         return res.status(500).json({message: "Internal server error"});
+    }
+}
+
+module.exports.stripeSession = async (req, res) => {
+    try {
+        // Retrieve the productId from the request
+        const { id } = req.params;
+
+        // Retrieve the product details from your database based on the productId
+        const product = await Product.findById({_id: id});
+
+        // Create a new Checkout Session with Stripe
+        const session = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [
+                {
+                    price_data: {
+                        currency: 'inr',
+                        product_data: {
+                            name: product.name,
+                            images: [product.photo],
+                        },
+                        unit_amount: product.price*100,
+                    },
+                    quantity: 1,
+                },
+            ],
+            mode: 'payment',
+            success_url: 'http://localhost:3000/orders',
+            cancel_url: 'http://localhost:3000/cancel',
+        });
+
+        res.json({ sessionId: session.id });
+    } catch (error) {
+        console.error('Error creating checkout session:', error);
+        res.status(500).json({ error: 'Failed to create checkout session' });
     }
 }

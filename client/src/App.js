@@ -6,6 +6,7 @@ import Cart from "./components/Cart";
 import Order from "./components/Order";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Fail from "./components/Fail";
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="/products" element={<Product/>}></Route>
           <Route path="/cart" element={<Cart/>}></Route>
           <Route path="/orders" element={<Order/>}></Route>
+          <Route path="/ashu" element={<Fail/>}></Route>
         </Routes>
       </BrowserRouter>
     </div>
