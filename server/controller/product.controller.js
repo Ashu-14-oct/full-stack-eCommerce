@@ -3,13 +3,14 @@ const Product = require("../models/product.model");
 //creating product endpoint
 module.exports.create = async (req, res) => {
     try{
-        const {name, description, quantity, price, photo} = req.body;
+        const {name, description, quantity, price, photo, isDealOfTheDay} = req.body;
         const product = await Product.create({
             name,
             description,
             quantity,
             price,
-            photo
+            photo,
+            isDealOfTheDay
         });
 
         return res.status(201).json({message: "New product added", product});
@@ -41,7 +42,7 @@ module.exports.delete = async (req, res) => {
 module.exports.update = async (req, res) => {
     try{
         const {id} = req.params
-        const {name, description, quantity, price} = req.body;
+        const {name, description, quantity, price, isDealOfTheDay} = req.body;
         const product = await Product.findOne({_id: id});
         if(!product){
             return res.status(409).json({message: "Product does not exist"});
@@ -51,7 +52,8 @@ module.exports.update = async (req, res) => {
             name,
             description,
             quantity,
-            price
+            price,
+            isDealOfTheDay
         }, {new: true});
 
         return res.status(200).json({message: "Product updated successfully", updatedProduct});
@@ -86,3 +88,15 @@ module.exports.product = async (req, res) => {
         return res.status(500).json({message: "Internal server error"});
     }
 }
+
+//get today's deal
+module.exports.todaysDeal = async (req, res) => {
+    try{
+        const products = await Product.find({isDealOfTheDay: true});
+        return res.status(200).json({products});
+    }catch(err){
+        console.log(err);
+        return res.status(500).json({message: "Internal server error"});
+    }
+}
+

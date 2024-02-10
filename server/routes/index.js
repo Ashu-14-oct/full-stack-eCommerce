@@ -21,6 +21,7 @@ router.get('/product-id/:id', product.product);
 router.post('/product/create', auth.check,product.create);
 router.delete('/product/delete/:id', auth.check,product.delete);
 router.put('/product/update/:id', auth.check,product.update);
+router.get('/product/todaydeal', product.todaysDeal);
 router.get('/product', auth.checkUser,product.allProducts);
 
 // cart and orders routing
