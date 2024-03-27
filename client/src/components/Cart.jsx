@@ -15,7 +15,7 @@ export default function Cart() {
         },
       };
       const response = await axios.get(
-        "http://localhost:5000/user/cart",
+        "http:/18.209.121.58:5000/user/cart",
         config
       );
       setItem(response.data.cartItems);

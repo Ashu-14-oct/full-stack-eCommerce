@@ -34,7 +34,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:5000/user/sign-in', formData);
+      const response = await axios.post('http:/18.209.121.58:5000/user/sign-in', formData);
       toast.success('Logged in successfully', {
         icon: <FiCheckCircle size={24} />, 
       });

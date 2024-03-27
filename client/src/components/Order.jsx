@@ -14,7 +14,7 @@ export default function Order() {
           }
         }
 
-        const response = await axios.get("http://localhost:5000/user/order", config);
+        const response = await axios.get("http:/18.209.121.58:5000/user/order", config);
         setOrders(response.data.orderItems);
       }catch(err){
         console.log(err);

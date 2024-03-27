@@ -19,7 +19,7 @@ export default function Today() {
       },
     };
     await axios.patch(
-      `http://localhost:5000/user/add-cart/${productId}`,
+      `http:/18.209.121.58:5000/user/add-cart/${productId}`,
       {},
       config
     );
@@ -37,12 +37,12 @@ export default function Today() {
         },
       };
       const order = await axios.patch(
-        `http://localhost:5000/user/order/${productId}`,
+        `http:/18.209.121.58:5000/user/order/${productId}`,
         {},
         config
       );
       const response = await axios.post(
-        `http://localhost:5000/create-checkout-session/${productId}`,
+        `http:/18.209.121.58:5000/create-checkout-session/${productId}`,
         {},
         config
       );
@@ -54,7 +54,7 @@ export default function Today() {
 
       if (order.data.user) {
         const removeFromCart = await axios.patch(
-          `http://localhost:5000/user/remove-cart/${productId}`,
+          `http:/18.209.121.58:5000/user/remove-cart/${productId}`,
           {},
           config
         );
@@ -73,7 +73,7 @@ export default function Today() {
     async function fetchData() {
       try {
         const response = await axios.get(
-          "http://localhost:5000/product/todaydeal"
+          "http:/18.209.121.58:5000/product/todaydeal"
         );
         setProduct(response.data.products);
       } catch (err) {
