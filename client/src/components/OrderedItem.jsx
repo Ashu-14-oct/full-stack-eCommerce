@@ -13,7 +13,7 @@ export default function OrderedItem({productId}) {
             Authorization: `Bearer ${token}`
           }
         }
-        const response = await axios.patch(`http:/18.209.121.58:5000/user/order-delete/${productId}`,{},config);
+        const response = await axios.patch(`http://18.209.121.58:5000/user/order-delete/${productId}`,{},config);
         console.log(response.data.message);
         if(response.data.message){
           window.location.reload();
@@ -32,7 +32,7 @@ export default function OrderedItem({productId}) {
                     }
                 }
 
-                const response = await axios.get(`http:/18.209.121.58:5000/product-id/${productId}`, config);
+                const response = await axios.get(`http://18.209.121.58:5000/product-id/${productId}`, config);
                 setProduct(response.data.product);
             }catch(err){
                 console.log(err);

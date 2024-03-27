@@ -20,7 +20,7 @@ export default function Product() {
           },
         };
         const response = await axios.get(
-          "http:/18.209.121.58:5000/product",
+          "http://18.209.121.58:5000/product",
           config
         );
         setProducts(response.data.allProducts);
@@ -43,7 +43,7 @@ export default function Product() {
       },
     };
     await axios.patch(
-      `http:/18.209.121.58:5000/user/add-cart/${productId}`,
+      `http://18.209.121.58:5000/user/add-cart/${productId}`,
       {},
       config
     );
@@ -61,12 +61,12 @@ export default function Product() {
         },
       };
       const order = await axios.patch(
-        `http:/18.209.121.58:5000/user/order/${productId}`,
+        `http://18.209.121.58:5000/user/order/${productId}`,
         {},
         config
       );
       const response = await axios.post(
-        `http:/18.209.121.58:5000/create-checkout-session/${productId}`,
+        `http://18.209.121.58:5000/create-checkout-session/${productId}`,
         {},
         config
       );
@@ -78,7 +78,7 @@ export default function Product() {
 
       if (order.data.user) {
         const removeFromCart = await axios.patch(
-          `http:/18.209.121.58:5000/user/remove-cart/${productId}`,
+          `http://18.209.121.58:5000/user/remove-cart/${productId}`,
           {},
           config
         );

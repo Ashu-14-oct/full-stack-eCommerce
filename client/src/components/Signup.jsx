@@ -33,7 +33,7 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http:/18.209.121.58:5000/user/sign-up', formData);
+      const response = await axios.post('http://18.209.121.58:5000/user/sign-up', formData);
       toast.success(JSON.stringify(response.data.message), {
         icon: <FiCheckCircle size={24} />
       });
