@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 import { loadStripe } from '@stripe/stripe-js';
+import { server } from "../keys/keys";
 import "./item.css";
 
 export default function Item({ itemId }) {
@@ -19,8 +20,8 @@ export default function Item({ itemId }) {
           Authorization: `Bearer ${token}`
         }
       }
-      const order = await axios.patch(`http://18.209.121.58:5000/user/order/${productId}`, {}, config);
-      const response = await axios.post(`http://18.209.121.58:5000/create-checkout-session/${itemId}`, {}, config);
+      const order = await axios.patch(`${server}/user/order/${productId}`, {}, config);
+      const response = await axios.post(`${server}/create-checkout-session/${itemId}`, {}, config);
       
       // Load Stripe
       const stripe = await loadStripe('pk_test_51OgreHSGw3aWlDdWT6yzdf48TfPXXRsIvnlxCgJJoBufeIy09akWRxAkPeyHX4d7SHxabr65TqPck7MmEi22LwOZ00chx759sS');
@@ -28,7 +29,7 @@ export default function Item({ itemId }) {
       
 
       if(order.data.user){
-        const removeFromCart = await axios.patch(`http://18.209.121.58:5000/user/remove-cart/${productId}`, {}, config);
+        const removeFromCart = await axios.patch(`${server}/user/remove-cart/${productId}`, {}, config);
         navigate('/orders');
         console.log(removeFromCart.data.message);
       }
@@ -50,7 +51,7 @@ export default function Item({ itemId }) {
           Authorization: `Bearer ${token}`
         }
       }
-      const response = await axios.patch(`http://18.209.121.58:5000/user/remove-cart/${productId}`, {}, config);
+      const response = await axios.patch(`${server}/user/remove-cart/${productId}`, {}, config);
       console.log(response.data.message);
       window.location.reload();
     }catch(err){
@@ -61,7 +62,7 @@ export default function Item({ itemId }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://18.209.121.58:5000/product-id/${itemId}`
+          `${server}/product-id/${itemId}`
         );
         setItemData(response.data.product);
       } catch (err) {

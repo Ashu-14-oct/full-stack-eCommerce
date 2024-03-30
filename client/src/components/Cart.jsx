@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Item from "./Item";
 import "./product.css"
+import { server } from "../keys/keys";
 
 
 export default function Cart() {
@@ -15,7 +16,7 @@ export default function Cart() {
         },
       };
       const response = await axios.get(
-        "http://18.209.121.58:5000/user/cart",
+       `${server}/user/cart`,
         config
       );
       setItem(response.data.cartItems);

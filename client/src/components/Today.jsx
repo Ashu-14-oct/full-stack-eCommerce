@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useNavigate } from "react-router-dom";
 import "./today.css";
+import { server } from "../keys/keys";
 
 export default function Today() {
   const [product, setProduct] = useState([]);
@@ -19,7 +20,7 @@ export default function Today() {
       },
     };
     await axios.patch(
-      `http://18.209.121.58:5000/user/add-cart/${productId}`,
+      `${server}/user/add-cart/${productId}`,
       {},
       config
     );
@@ -37,12 +38,12 @@ export default function Today() {
         },
       };
       const order = await axios.patch(
-        `http://18.209.121.58:5000/user/order/${productId}`,
+        `${server}/user/order/${productId}`,
         {},
         config
       );
       const response = await axios.post(
-        `http://18.209.121.58:5000/create-checkout-session/${productId}`,
+        `${server}/create-checkout-session/${productId}`,
         {},
         config
       );
@@ -54,7 +55,7 @@ export default function Today() {
 
       if (order.data.user) {
         const removeFromCart = await axios.patch(
-          `http://18.209.121.58:5000/user/remove-cart/${productId}`,
+          `${server}/user/remove-cart/${productId}`,
           {},
           config
         );
@@ -73,7 +74,7 @@ export default function Today() {
     async function fetchData() {
       try {
         const response = await axios.get(
-          "http://18.209.121.58:5000/product/todaydeal"
+          `${server}/product/todaydeal`
         );
         setProduct(response.data.products);
       } catch (err) {

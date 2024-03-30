@@ -4,6 +4,7 @@ import "./product.css";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import Today from "./Today";
+import { server } from "../keys/keys";
 
 export default function Product() {
   const [products, setProducts] = useState([]);
@@ -20,7 +21,7 @@ export default function Product() {
           },
         };
         const response = await axios.get(
-          "http://18.209.121.58:5000/product",
+          `${server}/product`,
           config
         );
         setProducts(response.data.allProducts);
@@ -43,7 +44,7 @@ export default function Product() {
       },
     };
     await axios.patch(
-      `http://18.209.121.58:5000/user/add-cart/${productId}`,
+      `${server}/user/add-cart/${productId}`,
       {},
       config
     );
@@ -61,12 +62,12 @@ export default function Product() {
         },
       };
       const order = await axios.patch(
-        `http://18.209.121.58:5000/user/order/${productId}`,
+        `${server}/user/order/${productId}`,
         {},
         config
       );
       const response = await axios.post(
-        `http://18.209.121.58:5000/create-checkout-session/${productId}`,
+        `${server}/create-checkout-session/${productId}`,
         {},
         config
       );
@@ -78,7 +79,7 @@ export default function Product() {
 
       if (order.data.user) {
         const removeFromCart = await axios.patch(
-          `http://18.209.121.58:5000/user/remove-cart/${productId}`,
+          `${server}/user/remove-cart/${productId}`,
           {},
           config
         );

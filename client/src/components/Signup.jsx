@@ -4,6 +4,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import { Link ,useNavigate } from 'react-router-dom';
 import "./login.css";
+import { server } from '../keys/keys';
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export default function Signup() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://18.209.121.58:5000/user/sign-up', formData);
+      const response = await axios.post(`${server}/user/sign-up`, formData);
       toast.success(JSON.stringify(response.data.message), {
         icon: <FiCheckCircle size={24} />
       });

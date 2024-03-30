@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from "axios"
 import OrderedItem from './OrderedItem';
+import { server } from '../keys/keys';
 
 export default function Order() {
   const [orders, setOrders] = useState([]);
@@ -14,7 +15,7 @@ export default function Order() {
           }
         }
 
-        const response = await axios.get("http://18.209.121.58:5000/user/order", config);
+        const response = await axios.get(`${server}/user/order`, config);
         setOrders(response.data.orderItems);
       }catch(err){
         console.log(err);

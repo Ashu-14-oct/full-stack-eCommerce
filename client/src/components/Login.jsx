@@ -5,6 +5,7 @@ import { FiCheckCircle, FiAlertCircle } from 'react-icons/fi';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import "./login.css";
+import { server } from '../keys/keys';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://18.209.121.58:5000/user/sign-in', formData);
+      const response = await axios.post(`${server}/user/sign-in`, formData);
       toast.success('Logged in successfully', {
         icon: <FiCheckCircle size={24} />, 
       });
